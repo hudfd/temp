@@ -1,7 +1,9 @@
 # temp
 This is a shared directory
 
-```mermaid```
+入出力概要図
+
+```mermaid
 flowchart LR
   subgraph IN["入力"]
     CONF[("設定ファイル")]
@@ -41,4 +43,8 @@ flowchart LR
   style BATCH fill:#fffdf0,stroke:#ffd966
   style DB_OUT fill:#d9f2d9,stroke:#548235,stroke-width:2px
   style MAIL fill:#fce4d6,stroke:#c55a11
-  ```mermaid```
+```
+
+---
+
+## 更新項目の対応（テーブル設計書との整合）
