@@ -5,36 +5,36 @@ This is a shared directory
 
 ```mermaid
 flowchart LR
-  subgraph IN["入力"]
-    CONF[("設定ファイル")]
-    SRV[["連携サーバ<br/>KENSHU_ フォルダ<br/>KENSHU_DATA.csv<br/>（検収ファイル：QR）"]]
-    DB_IN[("HACCHU_INFO<br/>（発注情報）")]
+  subgraph IN["输入"]
+    CONF[("配置文件")]
+    SRV[["联动服务器<br/>KENSHU_ 文件夹<br/>KENSHU_DATA.csv<br/>（验收文件：QR）"]]
+    DB_IN[("HACCHU_INFO<br/>（订货信息）")]
   end
 
-  subgraph BATCH["ステータス情報連携バッチ"]
+  subgraph BATCH["状态信息联动批处理"]
     direction TB
-    T1["1. 初期処理"]
-    T2["2. 多重起動チェック"]
-    T3["3-①② フォルダ取得<br/>配置完了チェック"]
-    T4["3-③(a)(b) ファイル取得<br/>中身チェック"]
-    T5["3-③(c)(d) 項目チェック<br/>項目数／桁数／必須／フォーマット"]
-    T6["3-③(e)(f)(g) 発注情報<br/>登録/更新・コミット"]
+    T1["1. 初始处理"]
+    T2["2. 多重启动检查"]
+    T3["3-①② 文件夹获取<br/>放置完成检查"]
+    T4["3-③(a)(b) 文件获取<br/>内容检查"]
+    T5["3-③(c)(d) 项目检查<br/>项目数／位数／必填／格式"]
+    T6["3-③(e)(f)(g) 订货信息<br/>注册/更新・提交"]
     T1 --> T2 --> T3 --> T4 --> T5 --> T6
   end
 
-  subgraph OUT["出力"]
-    DB_OUT[("HACCHU_INFO<br/>検収年月日／来社区分<br/>／受入数量 を更新")]
-    MAIL["メール送信<br/>（システム管理者）"]
-    LOG["ログ出力<br/>0:正常 1:エラー終了"]
+  subgraph OUT["输出"]
+    DB_OUT[("HACCHU_INFO<br/>更新验收年月日／来社区分<br/>／接收数量")]
+    MAIL["发送邮件<br/>（系统管理员）"]
+    LOG["日志输出<br/>0:正常 1:错误结束"]
   end
 
   CONF --> T1
   SRV --> T3
   DB_IN --> T6
-  T5 -.->|"エラー"| MAIL
+  T5 -.->|"错误"| MAIL
   T6 --> DB_OUT
-  T6 -.->|"DB異常"| MAIL
-  T4 -.->|"空ファイル"| MAIL
+  T6 -.->|"DB异常"| MAIL
+  T4 -.->|"空文件"| MAIL
   T6 --> MAIL
   T6 --> LOG
 
